@@ -19,7 +19,6 @@ import  { valueUpdater }  from '@/lib/utils'
 
 import { h, ref } from 'vue'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -36,90 +35,67 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-export interface Payment {
+export interface Task {
   id: string
-  amount: number
   status: 'pending' | 'processing' | 'complete' 
-  email: string
+  name: string
+  date: string
 }
 
-const data: Payment[] = [
-  {
-    id: 'm5gr84i9',
-    amount: 316,
-    status: 'complete',
-    email: 'ken99@yahoo.com',
-  },
-  {
-    id: '3u1reuv4',
-    amount: 242,
-    status: 'complete',
-    email: 'Abe45@gmail.com',
-  },
-  {
-    id: 'derv1ws0',
-    amount: 837,
-    status: 'processing',
-    email: 'Monserrat44@gmail.com',
-  },
-  {
-    id: '5kma53ae',
-    amount: 874,
-    status: 'complete',
-    email: 'Silas22@gmail.com',
-  },
-  {
-    id: 'bhqecj4p',
-    amount: 721,
-    status: 'pending',
-    email: 'carmella@hotmail.com',
-  },
+const data: Task[] = [
+{
+  id: 'task1',
+  status: 'pending',
+  name: 'Complete project report',
+  date: `${Math.floor(Math.random() * 24).toString().padStart(2, '0')}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+},
+{
+  id: 'task2',
+  status: 'processing',
+  name: 'Review client feedback',
+  date: `${Math.floor(Math.random() * 24).toString().padStart(2, '0')}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+},
+{
+  id: 'task3',
+  status: 'complete',
+  name: 'Prepare presentation slides',
+  date: `${Math.floor(Math.random() * 24).toString().padStart(2, '0')}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+},
+{
+  id: 'task4',
+  status: 'pending',
+  name: 'Schedule team meeting',
+  date: `${Math.floor(Math.random() * 24).toString().padStart(2, '0')}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+},
+{
+  id: 'task5',
+  status: 'processing',
+  name: 'Research new technologies',
+  date: `${Math.floor(Math.random() * 24).toString().padStart(2, '0')}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+},
 ]
 
-const columns: ColumnDef<Payment>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => h(Checkbox, {
-      'checked': table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate'),
-      'onUpdate:checked': value => table.toggleAllPageRowsSelected(!!value),
-      'ariaLabel': 'Select all',
-    }),
-    cell: ({ row }) => h(Checkbox, {
-      'checked': row.getIsSelected(),
-      'onUpdate:checked': value => row.toggleSelected(!!value),
-      'ariaLabel': 'Select row',
-    }),
-    enableSorting: false,
-    enableHiding: false,
-  },
+const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('status')),
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'name',
     header: ({ column }) => {
       return h(Button, {
         variant: 'ghost',
         onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
-      }, () => ['Email', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+      }, () => ['Name', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
     },
-    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('email')),
+    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('name')),
   },
   {
-    accessorKey: 'amount',
-    header: () => h('div', { class: 'text-right' }, 'Amount'),
+    accessorKey: 'date',
+    header: () => h('div', { class: 'text-right' }, 'Hour'),
     cell: ({ row }) => {
-      const amount = Number.parseFloat(row.getValue('amount'))
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount)
-
-      return h('div', { class: 'text-right font-medium' }, formatted)
+      return h('div', { class: 'text-right font-medium' }, row.getValue('date'))
     },
   },
   {
@@ -161,13 +137,13 @@ const table = useVueTable({
 </script>
 
 <template>
-  <div class="w-full px-6">
+  <div class="w-full px-6 flex flex-col flex-1">
     <div class="flex gap-2 items-center py-4">
       <Input
         class="max-w-sm"
-        placeholder="Filter tasks..."
-        :model-value="table.getColumn('email')?.getFilterValue() as string"
-        @update:model-value=" table.getColumn('email')?.setFilterValue($event)"
+        placeholder="Search tasks..."
+        :model-value="table.getColumn('name')?.getFilterValue() as string"
+        @update:model-value=" table.getColumn('name')?.setFilterValue($event)"
       />
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
@@ -190,7 +166,7 @@ const table = useVueTable({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-    <div class="rounded-md border">
+    <div class="rounded-md border h-full">
       <Table>
         <TableHeader>
           <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
@@ -225,10 +201,6 @@ const table = useVueTable({
     </div>
 
     <div class="flex items-center justify-end space-x-2 py-4">
-      <div class="flex-1 text-sm text-muted-foreground">
-        {{ table.getFilteredSelectedRowModel().rows.length }} of
-        {{ table.getFilteredRowModel().rows.length }} row(s) selected.
-      </div>
       <div class="space-x-2">
         <Button
           variant="outline"

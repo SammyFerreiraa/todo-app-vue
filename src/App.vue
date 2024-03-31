@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="h-screen flex flex-col">
     <Header />
     <TaskTable />
   </div>
