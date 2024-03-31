@@ -13,6 +13,7 @@ import {
   getSortedRowModel,
   useVueTable,
 } from '@tanstack/vue-table'
+import { Badge } from '@/components/ui/badge'
 import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
 import DropdownAction from '@/components/data-table-dropdown.vue'
 import  { valueUpdater }  from '@/lib/utils'
@@ -79,7 +80,9 @@ const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
-    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('status')),
+    cell: ({ row }) => {
+      return h(Badge, { class: 'capitalize', variant: 'outline'}, row.getValue('status'));
+    },
   },
   {
     accessorKey: 'name',
@@ -89,7 +92,7 @@ const columns: ColumnDef<Task>[] = [
         onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
       }, () => ['Name', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
     },
-    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('name')),
+    cell: ({ row }) => h('div', { class: '' }, row.getValue('name')),
   },
   {
     accessorKey: 'date',
