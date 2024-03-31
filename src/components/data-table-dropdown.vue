@@ -26,10 +26,10 @@ function copy(id: string) {
     <DropdownMenuContent align="end">
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
       <DropdownMenuItem @click="copy(payment.id)">
-        Copy payment ID
+        Mark as complete
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>View customer</DropdownMenuItem>
+      <DropdownMenuItem>View Creation</DropdownMenuItem>
       <DropdownMenuItem>View payment details</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
