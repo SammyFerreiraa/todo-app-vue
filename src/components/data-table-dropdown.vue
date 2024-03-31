@@ -29,8 +29,8 @@ function copy(id: string) {
         Mark as complete
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>View Creation</DropdownMenuItem>
-      <DropdownMenuItem>View payment details</DropdownMenuItem>
+      <DropdownMenuItem>Mark as processing</DropdownMenuItem>
+      <DropdownMenuItem>Mark as pending</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
