@@ -27,6 +27,7 @@
     "vee-validate": "^4.12.6",
     "vue": "^3.4.21",
     "vue-sonner": "^1.1.2",
+    "vuex": "^4.1.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
