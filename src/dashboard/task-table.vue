@@ -15,7 +15,7 @@ import {
 } from '@tanstack/vue-table'
 import { Badge } from '@/components/ui/badge'
 import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
-import DropdownAction from '@/components/data-table-dropdown.vue'
+import DropdownAction from '@/dashboard/_components/data-table-dropdown.vue'
 import  { valueUpdater }  from '@/lib/utils'
 
 import { h, ref } from 'vue'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import Header from './components/Header.vue'
-  import TaskTable from './components/task-table.vue'
+  import Header from './components/header.vue'
+  import TaskTable from './dashboard/task-table.vue'
 </script>
 
 <template>
