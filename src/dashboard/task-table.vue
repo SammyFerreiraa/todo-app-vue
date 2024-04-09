@@ -18,7 +18,7 @@ import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
 import DropdownAction from '@/dashboard/_components/data-table-dropdown.vue'
 import  { valueUpdater }  from '@/lib/utils'
 
-import { h, ref } from 'vue'
+import { h, ref, watch } from 'vue'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -43,9 +43,6 @@ export interface Task {
   date: string
 }
 import { useTasksStore } from './hooks/useTasks'
-const store = useTasksStore()
-
-const data = store.tasks
 
 const columns: ColumnDef<Task>[] = [
   {
@@ -77,21 +74,27 @@ const columns: ColumnDef<Task>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const payment = row.original
-
+      
       return h('div', { class: 'relative' }, h(DropdownAction, {
         payment,
       }))
     },
   },
 ]
+const store = useTasksStore()
 
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
+const data = ref<Task[]>([...store.tasks])
 const rowSelection = ref({})
 
+watch(() => store.tasks.length, () => {
+  data.value = [...store.tasks];
+});
+
 const table = useVueTable({
-  data,
+  get data() { return data.value },
   columns,
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),

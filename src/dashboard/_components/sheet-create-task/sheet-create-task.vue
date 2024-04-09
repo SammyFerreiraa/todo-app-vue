@@ -14,16 +14,22 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { ref } from 'vue'
+import { useTasksStore } from '@/dashboard/hooks/useTasks'
+import { format } from 'date-fns'
+import { uuid } from 'vue-uuid'
 
 const name = ref('')
 const description = ref('')
 const date = ref(new Date())
 
-const submitForm = (event: any) => {
-  event.preventDefault()
-  console.log('Name:', name.value)
-  console.log('Description:', description.value)
-  console.log('Date:', date.value)
+const store = useTasksStore()
+
+const submitForm = () => {
+  store.addTask({ 
+    id: uuid.v1(),
+    name: name.value,
+    status: "pending",
+    date: format(date.value, 'hh:mm')})
 }
 
 </script>

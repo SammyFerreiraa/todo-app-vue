@@ -37,8 +37,8 @@ export const useTasksStore = defineStore('tasks', {
       ] as Task[],
   }),
   actions: {
-    addTask(task: Task) {
-      this.tasks.push(task)
+    addTask(newTask: Task) {
+      this.tasks.push(newTask);
     },
   },
 })

@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { watch, defineProps, defineEmits } from 'vue'
+import { watch, defineProps } from 'vue'
 
 const props = defineProps({
   modelValue: Date
