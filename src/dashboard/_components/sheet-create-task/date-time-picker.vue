@@ -11,8 +11,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { watch, defineProps, defineEmits } from 'vue'
 
-const date = ref<Date>()
+const props = defineProps({
+  modelValue: Date
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const selectedDate = ref(props.modelValue)
+
+watch(selectedDate, (newValue) => {
+  emit('update:modelValue', newValue)
+})
+
 </script>
 
 <template>
@@ -22,15 +34,15 @@ const date = ref<Date>()
         :variant="'outline'"
         :class="cn(
           'w-[280px] justify-start text-left font-normal',
-          !date && 'text-muted-foreground',
+          !selectedDate && 'text-muted-foreground',
         )"
       >
         <CalendarIcon class="mr-2 h-4 w-4" />
-        <span>{{ date ? format(date, 'PPP - hh:mm') : "Pick a date" }}</span>
+        <span>{{ selectedDate ? format(selectedDate, 'PPP - hh:mm') : "Pick a date" }}</span>
       </Button>
     </PopoverTrigger>
     <PopoverContent class="w-auto p-0">
-      <Calendar v-model="date" mode="datetime" />
+      <Calendar v-model="selectedDate" mode="datetime" />
     </PopoverContent>
   </Popover>
 </template>

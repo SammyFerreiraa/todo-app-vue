@@ -17,12 +17,13 @@ import { ref } from 'vue'
 
 const name = ref('')
 const description = ref('')
+const date = ref(new Date())
 
 const submitForm = (event: any) => {
   event.preventDefault()
   console.log('Name:', name.value)
   console.log('Description:', description.value)
-  // console.log('Date:', date.value)
+  console.log('Date:', date.value)
 }
 
 </script>
@@ -54,7 +55,7 @@ const submitForm = (event: any) => {
           </Label>
           <Input id="description" v-model="description" class="col-span-3" autocomplete="off"/>
         </div>
-        <DateTimePicker  />
+        <DateTimePicker v-model="date" />
         <SheetFooter>
           <SheetClose as-child>
             <Button v-on:click="submitForm">
