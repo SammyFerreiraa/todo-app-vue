@@ -19,6 +19,7 @@
     "embla-carousel": "^8.0.0",
     "embla-carousel-vue": "^8.0.0",
     "lucide-vue-next": "^0.363.0",
+    "pinia": "^2.1.7",
     "radix-vue": "^1.6.1",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
@@ -27,7 +28,6 @@
     "vee-validate": "^4.12.6",
     "vue": "^3.4.21",
     "vue-sonner": "^1.1.2",
-    "vuex": "^4.1.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
