@@ -19,17 +19,17 @@ import { format } from 'date-fns'
 import { uuid } from 'vue-uuid'
 
 const name = ref('')
-const description = ref('')
 const date = ref(new Date())
 
 const store = useTasksStore()
 
-const submitForm = () => {
+const submitForm = (e: any) => {
+  e.preventDefault()
   store.addTask({ 
     id: uuid.v1(),
     name: name.value,
     status: "pending",
-    date: format(date.value, 'hh:mm')})
+    date: format(date.value, 'LLL dd/ee/y hh:mm aa')})
 }
 
 </script>
@@ -48,23 +48,17 @@ const submitForm = () => {
           Edit your task!
         </SheetDescription>
       </SheetHeader>
-      <form class="grid gap-4 py-4">
+      <form class="grid gap-4 py-4" v-on:submit.prevent="submitForm">
         <div class="grid grid-cols-4 items-center gap-4">
           <Label for="name" class="text-right">
             Name
           </Label>
           <Input id="name" v-model="name" class="col-span-3" autocomplete="off"/>
         </div>
-        <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="description" class="text-right">
-            Description
-          </Label>
-          <Input id="description" v-model="description" class="col-span-3" autocomplete="off"/>
-        </div>
         <DateTimePicker v-model="date" />
         <SheetFooter>
           <SheetClose as-child>
-            <Button v-on:click="submitForm">
+            <Button :onclick="submitForm">
               Save changes
             </Button>
           </SheetClose>
