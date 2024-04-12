@@ -1,18 +1,17 @@
 // DataTableDropDown.vue
 <script setup lang="ts">
 import { MoreHorizontal } from 'lucide-vue-next'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 
 defineProps<{
-  payment: {
+  task: {
     id: string
+    status: string
   }
 }>()
 
-function copy(id: string) {
-  navigator.clipboard.writeText(id)
-}
+const labels = ['complete', 'processing', 'pending']
 </script>
 
 <template>
@@ -25,12 +24,18 @@ function copy(id: string) {
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuItem @click="copy(payment.id)">
-        Mark as complete
-      </DropdownMenuItem>
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+        <DropdownMenuSubContent>
+          <DropdownMenuRadioGroup :value="task.status">
+            <DropdownMenuRadioItem v-for="label in labels" :key="label" :value="label" class="pl-4 capitalize">
+              {{ label  }}
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuSubContent>
+      </DropdownMenuSub>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>Mark as processing</DropdownMenuItem>
-      <DropdownMenuItem>Mark as pending</DropdownMenuItem>
+      <DropdownMenuItem>Delete</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

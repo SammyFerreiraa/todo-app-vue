@@ -64,7 +64,7 @@ const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: 'date',
-    header: () => h('div', { class: 'text-right' }, 'Hour'),
+    header: () => h('div', { class: 'text-right' }, 'Date'),
     cell: ({ row }) => {
       return h('div', { class: 'text-right font-medium' }, row.getValue('date'))
     },
@@ -73,10 +73,10 @@ const columns: ColumnDef<Task>[] = [
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+      const task = row.original
       
       return h('div', { class: 'relative' }, h(DropdownAction, {
-        payment,
+        task,
       }))
     },
   },

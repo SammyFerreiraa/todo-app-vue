@@ -29,7 +29,7 @@ const submitForm = (e: any) => {
     id: uuid.v1(),
     name: name.value,
     status: "pending",
-    date: format(date.value, 'LLL dd/ee/y hh:mm aa')})
+    date: format(date.value, 'dd/ee hh:mm aa')})
 }
 
 </script>
